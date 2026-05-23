@@ -1,0 +1,36 @@
+#!/bin/bash
+# vnlangc — VNLang compiler v0.1.0
+# Usage: vnlangc <file.vn> [--run] [-o output.ll]
+
+SCRIPT_DIR="$(cd "$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")" && pwd)"
+BINARY="$SCRIPT_DIR/_build/default/bin/main.exe"
+LLVM_BIN="/opt/homebrew/opt/llvm@14/bin"
+
+if [ ! -f "$BINARY" ]; then
+  echo "vnlangc: compiler not built. Run 'make build' in $SCRIPT_DIR first." >&2
+  exit 1
+fi
+
+eval $(opam env 2>/dev/null)
+
+RUN_AFTER=0
+ARGS=()
+for arg in "$@"; do
+  if [ "$arg" = "--run" ]; then
+    RUN_AFTER=1
+  else
+    ARGS+=("$arg")
+  fi
+done
+
+"$BINARY" "${ARGS[@]}"
+STATUS=$?
+
+if [ $STATUS -ne 0 ]; then
+  exit $STATUS
+fi
+
+if [ $RUN_AFTER -eq 1 ] && [ ${#ARGS[@]} -ge 1 ]; then
+  LLFILE="$(basename "${ARGS[0]}" .vn).ll"
+  "$LLVM_BIN/lli" "$LLFILE"
+fi

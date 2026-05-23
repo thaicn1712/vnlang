@@ -1,0 +1,12 @@
+# Arithmetic expressions test
+bien a = 10
+bien b = 3
+
+in(a + b)    # 13
+in(a - b)    # 7
+in(a * b)    # 30
+in(a / b)    # 3 (integer division)
+
+# Compound expression
+bien result = (a + b) * 2
+in(result)   # 26

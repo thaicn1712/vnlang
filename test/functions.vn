@@ -1,0 +1,21 @@
+# Functions and if/else test
+
+ham add(a: so, b: so): so {
+    tra_ve a + b
+}
+
+ham is_positive(x: so): logic {
+    tra_ve x > 0
+}
+
+bien x = 5
+bien y = 8
+bien total = add(x, y)
+
+in(total)   # 13
+
+neu (is_positive(total)) {
+    in("Result is positive")
+} khong {
+    in("Result is not positive")
+}

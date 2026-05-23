@@ -1,0 +1,4 @@
+(library
+ (name vnlang_lib)
+ (modules ast lexer parser codegen)
+ (libraries llvm))

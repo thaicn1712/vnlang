@@ -1,0 +1,15 @@
+ham square(x: so): so {
+    tra_ve x * x
+}
+
+bien n = 7
+bien result = square(n)
+
+in("square of 7 =")
+in(result)
+
+neu (result > 40) {
+    in("result is greater than 40")
+} khong {
+    in("result is 40 or less")
+}
